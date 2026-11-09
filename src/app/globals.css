@@ -1,0 +1,605 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-secondary: #f4f4f5;
+  --surface-hover: #f0f0f2;
+
+  --line: #dedee3;
+  --line-strong: #c4c4cc;
+
+  --chip: #f0f0f3;
+
+  --foreground: #18181b;
+  --foreground-secondary: #27272a;
+  --body: #303036;
+  --muted: #52525b;
+  --faint: #71717a;
+
+  --accent: #27272a;
+  --accent-hover: #09090b;
+  --verified: #16a34a;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.055);
+  --shadow-lg: 0 12px 35px rgba(0, 0, 0, 0.08);
+
+  --theme-duration: 450ms;
+  --theme-easing: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --bg: #09090b;
+  --surface: #111113;
+  --surface-secondary: #18181b;
+  --surface-hover: #1f1f23;
+
+  --line: #27272a;
+  --line-strong: #3f3f46;
+
+  --chip: #1f1f23;
+
+  --foreground: #fafafa;
+  --foreground-secondary: #e4e4e7;
+  --body: #d4d4d8;
+  --muted: #a1a1aa;
+  --faint: #71717a;
+
+  --accent: #d4d4d8;
+  --accent-hover: #ffffff;
+  --verified: #4ade80;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg);
+  color: var(--foreground);
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+
+  background-color: var(--bg);
+  color: var(--foreground);
+
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  transition:
+    background-color var(--theme-duration) var(--theme-easing),
+    color var(--theme-duration) var(--theme-easing);
+}
+
+html,
+body,
+body *,
+body *::before,
+body *::after {
+  transition:
+    background-color var(--theme-duration) var(--theme-easing),
+    border-color var(--theme-duration) var(--theme-easing),
+    color var(--theme-duration) var(--theme-easing),
+    box-shadow var(--theme-duration) var(--theme-easing);
+}
+
+.text-foreground {
+  color: var(--foreground);
+}
+
+.text-body {
+  color: var(--body);
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.text-faint {
+  color: var(--faint);
+}
+
+.text-verified {
+  color: var(--verified);
+}
+
+.bg-bg {
+  background-color: var(--bg);
+}
+
+.bg-surface {
+  background-color: var(--surface);
+}
+
+.bg-chip {
+  background-color: var(--chip);
+}
+
+.border-line {
+  border-color: var(--line);
+}
+
+.border-strong {
+  border-color: var(--line-strong);
+}
+
+::selection {
+  background: var(--foreground);
+  color: var(--bg);
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+.hatch {
+  background-color: var(--surface);
+
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(24, 24, 27, 0.045) 0 1px,
+    transparent 1px 5px
+  );
+}
+
+.dark .hatch {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0 1px,
+    transparent 1px 5px
+  );
+}
+
+button {
+  color: var(--foreground);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.card-hover {
+  transition:
+    background-color 350ms var(--theme-easing),
+    border-color 350ms var(--theme-easing),
+    box-shadow 350ms var(--theme-easing),
+    transform 350ms var(--theme-easing);
+}
+
+@media (hover: hover) {
+  .card-hover:hover {
+    background-color: var(--surface);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+}
+
+.image-hover {
+  overflow: hidden;
+}
+
+.image-hover img {
+  transition: transform 700ms var(--theme-easing);
+}
+
+@media (hover: hover) {
+  .image-hover:hover img {
+    transform: scale(1.045);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes theme-icon-enter {
+  from {
+    opacity: 0;
+    transform: rotate(-45deg) scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 650ms var(--theme-easing) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 500ms ease both;
+}
+
+.animate-scale-in {
+  animation: scale-in 550ms var(--theme-easing) both;
+}
+
+.animate-theme-icon {
+  animation: theme-icon-enter 350ms var(--theme-easing) both;
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--chip);
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  transform: translateX(-100%);
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+html:not(.dark) {
+  color: #18181b;
+}
+
+html:not(.dark) body {
+  color: #18181b;
+}
+
+html:not(.dark) h1,
+html:not(.dark) h2,
+html:not(.dark) h3,
+html:not(.dark) h4,
+html:not(.dark) h5,
+html:not(.dark) h6 {
+  color: #18181b;
+}
+
+html:not(.dark) p,
+html:not(.dark) li {
+  color: #303036;
+}
+
+html:not(.dark) .text-foreground {
+  color: #18181b !important;
+}
+
+html:not(.dark) .text-body {
+  color: #303036 !important;
+}
+
+html:not(.dark) .text-muted {
+  color: #52525b !important;
+}
+
+html:not(.dark) .text-faint {
+  color: #71717a !important;
+}
+
+html:not(.dark) .text-white {
+  color: #18181b !important;
+}
+
+html:not(.dark) .text-gray-100,
+html:not(.dark) .text-gray-200,
+html:not(.dark) .text-zinc-100,
+html:not(.dark) .text-zinc-200 {
+  color: #27272a !important;
+}
+
+html:not(.dark) .text-gray-300,
+html:not(.dark) .text-zinc-300 {
+  color: #3f3f46 !important;
+}
+
+html:not(.dark) .text-gray-400,
+html:not(.dark) .text-zinc-400 {
+  color: #52525b !important;
+}
+
+html:not(.dark) .text-gray-500,
+html:not(.dark) .text-zinc-500 {
+  color: #62626b !important;
+}
+
+html:not(.dark) .text-white\/50 {
+  color: #71717a !important;
+}
+
+html:not(.dark) .text-white\/60 {
+  color: #62626b !important;
+}
+
+html:not(.dark) .text-white\/70 {
+  color: #52525b !important;
+}
+
+html:not(.dark) .text-white\/80 {
+  color: #3f3f46 !important;
+}
+
+html:not(.dark) .text-white\/90 {
+  color: #27272a !important;
+}
+
+html:not(.dark) .info-label,
+html:not(.dark) .sidebar-label,
+html:not(.dark) .section-label {
+  color: #3f3f46;
+}
+
+html:not(.dark) .text-left {
+  color: inherit;
+}
+
+html:not(.dark) .text-muted svg,
+html:not(.dark) .text-faint svg {
+  color: #52525b;
+}
+
+html:not(.dark) .border-line {
+  border-color: #dedee3;
+}
+
+html:not(.dark) .bg-chip {
+  background-color: #f0f0f3;
+}
+
+html:not(.dark) a {
+  color: inherit;
+}
+
+html:not(.dark) a:hover {
+  color: #09090b;
+}
+
+html:not(.dark) input,
+html:not(.dark) textarea,
+html:not(.dark) select {
+  color: #18181b;
+  background-color: #ffffff;
+  border-color: #d4d4d8;
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #71717a;
+  opacity: 1;
+}
+
+html:not(.dark) .bg-surface {
+  background-color: #ffffff;
+}
+
+html:not(.dark) .bg-bg {
+  background-color: #fafafa;
+}
+
+html:not(.dark) .bg-white\/5 {
+  background-color: rgba(24, 24, 27, 0.035);
+}
+
+html:not(.dark) .bg-white\/10 {
+  background-color: rgba(24, 24, 27, 0.055);
+}
+
+html,
+body,
+body *,
+body *::before,
+body *::after {
+  transition:
+    background-color var(--theme-duration) var(--theme-easing),
+    border-color var(--theme-duration) var(--theme-easing),
+    color var(--theme-duration) var(--theme-easing),
+    box-shadow var(--theme-duration) var(--theme-easing);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* =========================================
+   LIGHT THEME — SOCIAL BRAND TILES
+========================================= */
+
+/* Keep all four social tiles white */
+html:not(.dark) .lc-tile {
+  background-color: #ffffff !important;
+  color: #18181b !important;
+  border: 1px solid #e4e4e7 !important;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.045);
+}
+
+/* LinkedIn */
+html:not(.dark) .lc-tile:has(svg) {
+  color: #18181b !important;
+}
+
+/* GitHub, X and daily.dev */
+html:not(.dark) .lc-tile svg {
+  color: #18181b !important;
+  fill: currentColor;
+}
+
+/* =========================================
+   LIGHT THEME — CARD BACKGROUND
+========================================= */
+
+html:not(.dark) .lc-card {
+  background-color: transparent;
+  color: #18181b !important;
+}
+
+@media (hover: hover) {
+  html:not(.dark) .lc-card:hover {
+    background-color: #f4f4f5 !important;
+  }
+}
+
+/* =========================================
+   LIGHT THEME — LABEL VISIBILITY
+========================================= */
+
+html:not(.dark) .lc-card .text-muted {
+  color: #62626b !important;
+}
+
+html:not(.dark) .lc-card .lc-arrow {
+  color: #71717a !important;
+}
+
+@media (hover: hover) {
+  html:not(.dark) .lc-card:hover .lc-arrow {
+    color: #18181b !important;
+  }
+}
+
+/* =========================================
+   LIGHT THEME — TILE HOVER
+========================================= */
+
+@media (hover: hover) {
+  html:not(.dark) .lc-card:hover .lc-tile {
+    background-color: #ffffff !important;
+    border-color: #c4c4cc !important;
+    box-shadow: 0 9px 24px rgba(0, 0, 0, 0.10);
+  }
+}
+
+/* =========================================
+   LIGHT THEME — FOCUS
+========================================= */
+
+html:not(.dark) .lc-card:focus-visible {
+  background-color: #f4f4f5 !important;
+  outline: 2px solid #52525b;
+  outline-offset: -2px;
+}
+
+html:not(.dark) .lc-card:focus-visible .lc-tile {
+  background-color: #ffffff !important;
+  border-color: #a1a1aa !important;
+}
+
+/* =========================================
+   DARK THEME — PRESERVE ORIGINAL BRAND TILES
+========================================= */
+
+.dark .lc-tile {
+  color: #ffffff;
+}
+
+.dark .lc-card {
+  color: #fafafa;
+}
+
+/* =========================================
+   THEME TRANSITIONS
+========================================= */
+
+.lc-tile,
+.lc-card,
+.lc-arrow {
+  transition:
+    background-color 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
